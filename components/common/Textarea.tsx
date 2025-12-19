@@ -42,7 +42,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       [ref]
     );
 
-    const currentLength = typeof value === 'string' ? value.length : (value as string)?.length || 0;
+    const currentLength = typeof value === 'string' ? value.length : Array.isArray(value) ? value.join('').length : 0;
 
     React.useEffect(() => {
       if (autoResize && textareaRef.current) {
