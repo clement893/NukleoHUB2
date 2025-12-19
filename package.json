@@ -19,7 +19,7 @@
     "install:all": "pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
+    "turbo": "^1.12.0",
     "prettier": "^3.0.0"
   },
   "packageManager": "pnpm@8.15.0",
