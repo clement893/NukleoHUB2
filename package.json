@@ -9,11 +9,14 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "build:web": "cd apps/web && pnpm build",
     "start": "turbo run start",
+    "start:web": "cd apps/web && pnpm start",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "install:all": "pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

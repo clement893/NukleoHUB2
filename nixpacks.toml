@@ -2,10 +2,14 @@
 nixPkgs = ["nodejs_20", "pnpm"]
 
 [phases.install]
-cmds = ["pnpm install --frozen-lockfile"]
+cmds = [
+  "pnpm install --no-frozen-lockfile"
+]
 
 [phases.build]
-cmds = ["pnpm build"]
+cmds = [
+  "cd apps/web && pnpm build"
+]
 
 [start]
-cmd = "pnpm start"
+cmd = "cd apps/web && pnpm start"
