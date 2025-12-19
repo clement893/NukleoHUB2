@@ -93,7 +93,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         children.props.onBlur(e);
       }
     },
-  });
+  } as any);
 
   return (
     <div className={cn('relative inline-block', className)}>
