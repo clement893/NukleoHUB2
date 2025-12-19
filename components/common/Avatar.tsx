@@ -110,12 +110,12 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ children, max, size, classNam
       {...props}
     >
       {visibleAvatars.map((child, index) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement<AvatarProps>(child)) {
           return React.cloneElement(child, {
             key: index,
             size: size || child.props.size,
             className: cn('ring-2 ring-background', child.props.className),
-          });
+          } as Partial<AvatarProps>);
         }
         return child;
       })}
