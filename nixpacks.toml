@@ -8,8 +8,8 @@ cmds = [
 
 [phases.build]
 cmds = [
-  "cd apps/web && pnpm build"
+  "pnpm --filter @nukleohub/web build"
 ]
 
 [start]
-cmd = "cd apps/web && pnpm start"
+cmd = "pnpm --filter @nukleohub/web start"
