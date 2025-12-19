@@ -68,29 +68,30 @@ const Tooltip: React.FC<TooltipProps> = ({
     right: 'right-full top-1/2 -translate-y-1/2 border-r-background border-t-transparent border-b-transparent border-l-transparent',
   };
 
+  const originalProps = children.props as any;
   const childElement = React.cloneElement(children, {
     onMouseEnter: (e: React.MouseEvent) => {
       showTooltip();
-      if (children.props.onMouseEnter) {
-        children.props.onMouseEnter(e);
+      if (originalProps.onMouseEnter) {
+        originalProps.onMouseEnter(e);
       }
     },
     onMouseLeave: (e: React.MouseEvent) => {
       hideTooltip();
-      if (children.props.onMouseLeave) {
-        children.props.onMouseLeave(e);
+      if (originalProps.onMouseLeave) {
+        originalProps.onMouseLeave(e);
       }
     },
     onFocus: (e: React.FocusEvent) => {
       showTooltip();
-      if (children.props.onFocus) {
-        children.props.onFocus(e);
+      if (originalProps.onFocus) {
+        originalProps.onFocus(e);
       }
     },
     onBlur: (e: React.FocusEvent) => {
       hideTooltip();
-      if (children.props.onBlur) {
-        children.props.onBlur(e);
+      if (originalProps.onBlur) {
+        originalProps.onBlur(e);
       }
     },
   } as any);
