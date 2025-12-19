@@ -16,9 +16,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       if (onChange) {
         onChange(e.target.value);
       }
-      if (props.onChange) {
-        props.onChange(e);
-      }
     };
 
     return (
