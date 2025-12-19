@@ -159,5 +159,5 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 
 CheckboxGroup.displayName = 'CheckboxGroup';
 
-export { CheckboxGroup };
+export { Checkbox, CheckboxGroup };
 
