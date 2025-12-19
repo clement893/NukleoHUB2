@@ -1,0 +1,10 @@
+{
+  "extends": "@nukleohub/config/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "."
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist", "prisma/migrations"]
+}
+

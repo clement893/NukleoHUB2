@@ -1,0 +1,26 @@
+{
+  "extends": "@nukleohub/config/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@nukleohub/ui": ["../../packages/ui"],
+      "@nukleohub/types": ["../../packages/types"],
+      "@nukleohub/db": ["../../packages/db"],
+      "@nukleohub/commercial": ["../../packages/commercial"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
+

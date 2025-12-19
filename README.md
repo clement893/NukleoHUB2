@@ -1,194 +1,101 @@
-# Nukleo HUB 2.0
+# NukleoHUB2 - Monorepo avec Turborepo
 
-Modern ERP Platform built with Next.js, TypeScript, and Tailwind CSS.
+Ce projet est un monorepo géré par Turborepo, organisé en applications et packages partagés.
 
-## 🚀 Tech Stack
-
-- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS 4
-- **Backend:** Node.js, Next.js API Routes
-- **Database:** PostgreSQL, Prisma ORM
-- **Cache:** Redis
-- **Authentication:** Google OAuth, JWT
-- **Storage:** AWS S3
-- **AI:** OpenAI API
-- **Deployment:** Railway
-
-## 📁 Project Structure
+## Structure du Projet
 
 ```
 nukleohub2/
-├── app/                    # Next.js App Router
-├── components/             # React Components
-├── hooks/                  # Custom React Hooks
-├── lib/                    # Utilities & Services
-├── types/                  # TypeScript Types
-├── stores/                 # Zustand Stores
-├── providers/              # React Context Providers
-├── styles/                 # Tailwind CSS Styles
-├── config/                 # Configuration Files
-├── prisma/                 # Database Schema & Migrations
-├── tests/                  # Unit, Integration & E2E Tests
-└── docs/                   # Documentation
+├── apps/
+│   └── web/              # Application Next.js principale
+├── packages/
+│   ├── ui/               # Librairie de composants UI partagés
+│   ├── types/            # Types TypeScript partagés
+│   ├── config/           # Configurations partagées (ESLint, TypeScript)
+│   ├── db/               # Schéma Prisma et client de base de données
+│   └── commercial/       # Module Commercial (composants, types, services)
+├── package.json          # Configuration racine avec workspaces
+└── turbo.json            # Configuration Turborepo
 ```
 
-## 📚 Documentation
-
-- [Database Strategy](docs/DATABASE_STRATEGY.md) - Database architecture and recommendations
-- [Project Architecture](docs/PROJECT_ARCHITECTURE.md) - Complete project architecture
-- [Tailwind Refactor Guide](docs/TAILWIND_REFACTOR_GUIDE.md) - Design system setup
-- [Components Refactor Guide](docs/COMPONENTS_REFACTOR_GUIDE.md) - Reusable components
-- [Implementation Guide](docs/IMPLEMENTATION_GUIDE.md) - Step-by-step implementation
-
-## 🛠️ Setup
-
-### Prerequisites
-
-- Node.js 18+
-- pnpm 8+
-- PostgreSQL 14+
-- Redis 7+
-
-### Installation
+## Installation
 
 ```bash
-# Install dependencies
+# Installer toutes les dépendances
 pnpm install
+```
 
-# Setup environment variables
-cp .env.example .env.local
+## Développement
 
-# Run database migrations
-pnpm prisma migrate dev
-
-# Start development server
+```bash
+# Démarrer toutes les applications en mode développement
 pnpm dev
+
+# Démarrer uniquement l'application web
+pnpm --filter @nukleohub/web dev
 ```
 
-## 🌐 Environment Variables
+## Build
 
+```bash
+# Construire tous les packages et applications
+pnpm build
+
+# Construire uniquement l'application web
+pnpm --filter @nukleohub/web build
+```
+
+## Scripts Disponibles
+
+- `pnpm dev` - Démarre toutes les apps en mode développement
+- `pnpm build` - Construit tous les packages et apps
+- `pnpm lint` - Lint tous les packages
+- `pnpm type-check` - Vérifie les types TypeScript
+- `pnpm clean` - Nettoie tous les dossiers de build
+
+## Packages
+
+### @nukleohub/ui
+Librairie de composants UI réutilisables (26 composants).
+
+### @nukleohub/types
+Types TypeScript partagés entre les packages.
+
+### @nukleohub/db
+Schéma Prisma et client de base de données centralisé.
+
+### @nukleohub/commercial
+Module Commercial complet avec composants, types et services.
+
+### @nukleohub/web
+Application Next.js principale qui utilise tous les packages.
+
+## Configuration de la Base de Données
+
+1. Créer un fichier `.env` à la racine avec :
 ```env
-# Database
-DATABASE_URL=postgresql://...
-REDIS_URL=redis://...
-
-# Authentication
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-JWT_SECRET=...
-
-# AWS S3
-AWS_ACCESS_KEY_ID=...
-AWS_SECRET_ACCESS_KEY=...
-AWS_REGION=...
-AWS_BUCKET_NAME=...
-
-# OpenAI
-OPENAI_API_KEY=...
-
-# App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
 ```
 
-## 🚢 Deployment
-
-This project is configured for deployment on Railway.
-
-### Deploy to Railway
-
-1. Connect your GitHub repository to Railway
-2. Add environment variables in Railway dashboard
-3. Deploy automatically on push to `main` branch
-
-## 📦 Modules
-
-### 1. Commercial
-- Opportunities management
-- Contacts & Companies
-- Sales pipeline (Kanban)
-- Testimonials
-
-### 2. Projects
-- Project management
-- Tasks & Milestones
-- Phases & Workflows
-- Document management
-- Approval workflows
-
-### 3. Team
-- Employee management
-- Time tracking
-- Timesheets
-- Vacation management
-- Workload tracking
-
-### 4. Billing
-- Invoices & Quotes
-- Payments
-- Payment reminders
-- Financial reports
-
-### 5. Communication
-- Communication strategies
-- Content calendar
-- Campaigns & Newsletters
-- Brand assets
-
-### 6. Contracts
-- Contract management
-- Templates
-- Electronic signatures
-- Renewals & Amendments
-
-### 7. Admin
-- User management
-- Access control
-- API keys
-- System settings
-
-### 8. Portals
-- Client portal
-- Employee portal
-- Secure access
-- Notifications
-
-## 🧪 Testing
-
+2. Générer le client Prisma :
 ```bash
-# Run unit tests
-pnpm test
-
-# Run integration tests
-pnpm test:integration
-
-# Run E2E tests
-pnpm test:e2e
-
-# Run all tests with coverage
-pnpm test:coverage
+pnpm --filter @nukleohub/db db:generate
 ```
 
-## 📝 Scripts
-
+3. Créer les migrations :
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm start        # Start production server
-pnpm lint         # Run ESLint
-pnpm type-check   # Run TypeScript compiler
-pnpm format       # Format code with Prettier
+pnpm --filter @nukleohub/db db:migrate
 ```
 
-## 🤝 Contributing
+## Déploiement
 
-1. Create a feature branch from `staging`
-2. Make your changes
-3. Run tests and linting
-4. Submit a pull request to `staging`
+L'application web (`apps/web`) peut être déployée sur Railway ou Vercel. Les autres packages sont des dépendances internes.
 
-## 📄 License
+## Technologies
 
-Private - All Rights Reserved
-
-## 👥 Team
-
-Developed by Nukleo Team
+- **Turborepo** - Gestion du monorepo
+- **Next.js 16** - Framework React
+- **TypeScript** - Typage statique
+- **Tailwind CSS** - Styling
+- **Prisma** - ORM pour la base de données
+- **pnpm** - Gestionnaire de packages

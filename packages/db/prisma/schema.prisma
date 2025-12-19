@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String?
+  opportunities Opportunity[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Opportunity {
+  id          String      @id @default(cuid())
+  name        String
+  stage       String      // Nouveau, Qualification, Proposition, Négociation, Gagné, Perdu
+  amount      Float
+  closingDate DateTime
+  ownerId     String
+  owner       User        @relation(fields: [ownerId], references: [id])
+  contactId   String
+  contact     Contact     @relation(fields: [contactId], references: [id])
+  companyId   String
+  company     Company     @relation(fields: [companyId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([stage])
+  @@index([ownerId])
+  @@index([contactId])
+  @@index([companyId])
+}
+
+model Contact {
+  id          String      @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String      @unique
+  phone       String?
+  companyId   String
+  company     Company     @relation(fields: [companyId], references: [id])
+  opportunities Opportunity[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([companyId])
+  @@index([email])
+}
+
+model Company {
+  id          String      @id @default(cuid())
+  name        String
+  address     String?
+  website     String?
+  contacts    Contact[]
+  opportunities Opportunity[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([name])
+}
+
