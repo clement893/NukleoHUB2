@@ -70,7 +70,7 @@ const Tabs: React.FC<TabsProps> = ({
 
   return (
     <div className={cn('w-full', className)}>
-      <div className={cn(tabsListVariants({ orientation }))} role="tablist" aria-orientation={orientation}>
+      <div className={cn(tabsListVariants({ orientation }))} role="tablist" aria-orientation={orientation || undefined}>
         {items.map((item) => (
           <button
             key={item.value}
